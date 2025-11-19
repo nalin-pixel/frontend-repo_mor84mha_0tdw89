@@ -1,73 +1,76 @@
-function App() {
+import React, { useState } from 'react'
+import Hero from './components/Hero'
+import FeaturedCollections from './components/FeaturedCollections'
+import RoomVisualizer from './components/RoomVisualizer'
+import WhyChooseUs from './components/WhyChooseUs'
+import Gallery from './components/Gallery'
+import Testimonials from './components/Testimonials'
+import CTASections from './components/CTASections'
+import StoreInfo from './components/StoreInfo'
+import QuoteDialog from './components/QuoteDialog'
+
+function Navbar({ onOpenQuote }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_50%)]"></div>
-
-      <div className="relative min-h-screen flex items-center justify-center p-8">
-        <div className="max-w-2xl w-full">
-          {/* Header with Flames icon */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center mb-6">
-              <img
-                src="/flame-icon.svg"
-                alt="Flames"
-                className="w-24 h-24 drop-shadow-[0_0_25px_rgba(59,130,246,0.5)]"
-              />
-            </div>
-
-            <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
-              Flames Blue
-            </h1>
-
-            <p className="text-xl text-blue-200 mb-6">
-              Build applications through conversation
-            </p>
-          </div>
-
-          {/* Instructions */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 shadow-xl mb-6">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                1
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Describe your idea</h3>
-                <p className="text-blue-200/80 text-sm">Use the chat panel on the left to tell the AI what you want to build</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                2
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Watch it build</h3>
-                <p className="text-blue-200/80 text-sm">Your app will appear in this preview as the AI generates the code</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                3
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Refine and iterate</h3>
-                <p className="text-blue-200/80 text-sm">Continue the conversation to add features and make changes</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="text-center">
-            <p className="text-sm text-blue-300/60">
-              No coding required • Just describe what you want
-            </p>
+    <header className="fixed top-0 left-0 right-0 z-40">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mt-5 rounded-2xl border border-white/10 bg-black/40 backdrop-blur supports-[backdrop-filter]:bg-black/30">
+          <div className="flex items-center justify-between px-4 py-3 text-white">
+            <a href="#" className="font-bold tracking-wider text-white">MARBLE•LUX</a>
+            <nav className="hidden md:flex items-center gap-6 text-sm text-white/80">
+              <a href="#collections" className="hover:text-white">Collections</a>
+              <a href="#visualizer" className="hover:text-white">Visualizer</a>
+              <a href="#gallery" className="hover:text-white">Gallery</a>
+              <a href="#contact" className="hover:text-white">Contact</a>
+            </nav>
+            <button onClick={onOpenQuote} className="rounded-full bg-white/10 border border-white/20 px-4 py-2 text-sm hover:bg-white/20">Request a Quote</button>
           </div>
         </div>
       </div>
-    </div>
+    </header>
   )
 }
 
-export default App
+function Footer() {
+  return (
+    <footer className="bg-neutral-950 text-white border-t border-white/10">
+      <div className="container mx-auto px-6 py-10 grid md:grid-cols-3 gap-6">
+        <div>
+          <h4 className="font-semibold">About Marble•Lux</h4>
+          <p className="text-white/70 text-sm mt-2">A premium destination for Italian marble, quartz, granite and designer tiles. We help craft spaces that tell timeless stories.</p>
+        </div>
+        <div>
+          <h4 className="font-semibold">Information</h4>
+          <ul className="text-white/70 text-sm mt-2 space-y-1">
+            <li>Contactless payments & doorstep delivery</li>
+            <li>ISO-grade quality checks</li>
+            <li>Sustainable sourcing</li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="font-semibold">Follow</h4>
+          <p className="text-white/70 text-sm mt-2">Instagram • Pinterest • LinkedIn</p>
+        </div>
+      </div>
+      <div className="border-t border-white/10 px-6 py-6 text-center text-white/50 text-sm">© {new Date().getFullYear()} Marble•Lux. All rights reserved.</div>
+    </footer>
+  )
+}
+
+export default function App() {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="min-h-screen bg-neutral-950">
+      <Navbar onOpenQuote={() => setOpen(true)} />
+      <Hero onOpenQuote={() => setOpen(true)} />
+      <FeaturedCollections />
+      <RoomVisualizer />
+      <WhyChooseUs />
+      <Gallery />
+      <Testimonials />
+      <CTASections />
+      <StoreInfo />
+      <Footer />
+      <QuoteDialog open={open} onClose={() => setOpen(false)} />
+    </div>
+  )
+}
